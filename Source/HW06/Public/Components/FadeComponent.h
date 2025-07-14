@@ -22,11 +22,11 @@ private:
 
 	bool bIsVisible;
 	FTimerHandle FadeTimerHandle;
-	float UpdateInterval;
-
+	
 	UPROPERTY()
 	AActor* Owner;
 
 	void Fade();
+	void ToggleVisibility(bool Visibility);
 	void RandomizeProperties();
 };

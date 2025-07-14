@@ -3,8 +3,7 @@
 
 UFadeComponent::UFadeComponent()
 {
-	PrimaryComponentTick.bCanEverTick = true;
-	UpdateInterval = 0.01f;
+	PrimaryComponentTick.bCanEverTick = false;
 }
 
 void UFadeComponent::BeginPlay()
@@ -14,14 +13,26 @@ void UFadeComponent::BeginPlay()
 	Owner = GetOwner();
 	if (!Owner) return;
 	RandomizeProperties();
-	GetWorld()->GetTimerManager().SetTimer(FadeTimerHandle, this, &UFadeComponent::Fade, UpdateInterval, true);
+	ToggleVisibility(bIsVisible);
+	float Delay = bIsVisible ? VisibleDuration : HiddenDuration;
+	GetWorld()->GetTimerManager().SetTimer(FadeTimerHandle, this, &UFadeComponent::Fade, Delay, true);
 	
 }
 
 void UFadeComponent::Fade()
 {
+	bIsVisible = !bIsVisible;
+	ToggleVisibility(bIsVisible);
 
+	float NextDelay = bIsVisible ? VisibleDuration : HiddenDuration;
+	GetWorld()->GetTimerManager().SetTimer(FadeTimerHandle, this, &UFadeComponent::Fade, NextDelay, true);
 	
+}
+
+void UFadeComponent::ToggleVisibility(bool Visibility)
+{
+	Owner->SetActorHiddenInGame(!Visibility);
+	Owner->SetActorEnableCollision(Visibility);
 }
 
 void UFadeComponent::RandomizeProperties()
