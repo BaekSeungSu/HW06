@@ -23,4 +23,3 @@ void ALevelGimmick::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-

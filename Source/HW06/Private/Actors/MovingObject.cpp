@@ -1,5 +1,4 @@
 #include "Actors/MovingObject.h"
-
 #include "EntitySystem/MovieSceneEntitySystemRunner.h"
 
 AMovingObject::AMovingObject()
@@ -12,6 +11,7 @@ AMovingObject::AMovingObject()
 	StaticMeshComp->SetupAttachment(GetRootComponent());
 	
 	MoveOffset = FVector(0.0f, 0.0f, 0.0f);
+	
 }
 
 void AMovingObject::BeginPlay()

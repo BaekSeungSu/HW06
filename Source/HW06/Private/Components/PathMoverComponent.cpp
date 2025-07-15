@@ -18,7 +18,6 @@ void UPathMoverComponent::BeginPlay()
 	if (!Owner) return;
 	RandomizeProperties();
 	GetWorld()->GetTimerManager().SetTimer(MovementTimerHandle, this, &UPathMoverComponent::UpdateMovement, UpdateInterval, true);
-
 }
 
 void UPathMoverComponent::OnComponentDestroyed(bool bDestroyingHierarchy)
